@@ -1,0 +1,16 @@
+# freelancer.yaml
+name: Tanaka Hiroshi
+company: Tanaka Consulting
+tax_id: T12345678
+address:
+  street: 1-2-3 Shibuya
+  city: Tokyo
+  postal_code: 150-0002
+contact:
+  email: tanaka@example.com
+  phone: 03-1234-5678
+bank:
+  name: Mizuho Bank
+  branch: Shibuya
+  account: 12345678
+  type: Ordinary

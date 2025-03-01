@@ -22,3 +22,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Ignore actual user data
+src/data/
+
+# But allow sample data
+!data.sample/

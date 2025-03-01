@@ -1,0 +1,16 @@
+# clients.yaml
+- id: client001
+  name: Tech Solutions Co.
+  address:
+    street: 4-5-6 Shinjuku
+    city: Tokyo
+    postal_code: 160-0022
+  contact:
+    name: Yamada Taro
+    email: yamada@techsolutions.co.jp
+    phone: 03-8765-4321
+  payment_terms: 30
+  hourly_rate: 5000
+
+- id: client002
+  # Next client details...
