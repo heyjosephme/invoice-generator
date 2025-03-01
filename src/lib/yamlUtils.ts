@@ -1,6 +1,7 @@
 import yaml from "js-yaml";
 import fs from "node:fs";
 import path from "node:path";
+import Papa from "papaparse";
 
 export interface ClientAddress {
   address_1: string;
@@ -52,6 +53,14 @@ export interface Freelancer {
     account: string;
     type: string; // enum, normal
   };
+  worklogs_file?: string; // Optional field for the CSV file name
+}
+
+export interface WorklogEntry {
+  date: string;
+  client_id: string;
+  hours: number;
+  description: string;
 }
 
 export function getClients(): Client[] {
@@ -94,5 +103,51 @@ export function getFreelancer(): Freelancer {
       tax_id: "",
       bank: { name: "", account: "" },
     };
+  }
+}
+
+export function getWorklogs(filename?: string): WorklogEntry[] {
+  try {
+    let csvFilename: string;
+
+    // If filename is provided, use it directly
+    if (filename) {
+      csvFilename = filename;
+    } else {
+      // Otherwise, get the filename from freelancer data
+      const freelancer = getFreelancer();
+
+      if (!freelancer.worklogs_file) {
+        console.error(
+          "No worklogs file specified in freelancer.yml and no filename provided"
+        );
+        return [];
+      }
+
+      csvFilename = freelancer.worklogs_file;
+    }
+
+    // Get the absolute path to the CSV file
+    const filePath = path.resolve(process.cwd(), "src/data", csvFilename);
+
+    // Read the file synchronously
+    const fileContents = fs.readFileSync(filePath, "utf8");
+
+    // Parse the CSV content using Papaparse
+    const parseResult = Papa.parse<WorklogEntry>(fileContents, {
+      header: true,
+      skipEmptyLines: true,
+      dynamicTyping: true, // Automatically convert numeric values
+      transformHeader: (header) => header.trim(), // Trim headers in v5.5
+    });
+
+    if (parseResult.errors && parseResult.errors.length > 0) {
+      console.warn("CSV parsing had errors:", parseResult.errors);
+    }
+
+    return parseResult.data;
+  } catch (error) {
+    console.error("Error reading worklogs CSV:", error);
+    return [];
   }
 }
