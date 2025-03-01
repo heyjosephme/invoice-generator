@@ -5,4 +5,26 @@ import Layout from "../layouts/Layout.astro";
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout />
+<Layout>
+  <main class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-6">Invoice Generator</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <a
+        href="/clients"
+        class="block p-6 border rounded-lg shadow-md hover:shadow-lg transition-shadow"
+      >
+        <h2 class="text-xl font-semibold mb-2">View Clients</h2>
+        <p>Browse and manage your client information</p>
+      </a>
+
+      <a
+        href="/freelancer"
+        class="block p-6 border rounded-lg shadow-md hover:shadow-lg transition-shadow"
+      >
+        <h2 class="text-xl font-semibold mb-2">Freelancer Profile</h2>
+        <p>View and edit your freelancer information</p>
+      </a>
+    </div>
+  </main>
+</Layout>
