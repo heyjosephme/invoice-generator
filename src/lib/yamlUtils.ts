@@ -58,9 +58,13 @@ export interface Freelancer {
 
 export interface WorklogEntry {
   date: string;
-  client_id: string;
-  hours: number;
-  description: string;
+  start_time: string;
+  end_time: string;
+  details: string;
+  location: string;
+  client_id?: string;
+  hours?: number;
+  description?: string;
 }
 
 export function getClients(): Client[] {
